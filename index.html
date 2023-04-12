@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>clasificacion de archivos</h1>
+					<P>presentado por :Fabry Steven Martinez.</P>
+					
+				</section>
+				<section>
+					<h1>TIPOS DE ARCHIVOS</h1>
+
+					<P>Archivo plano.</P>
+					<p>Archivo tipo XML.</p>
+					<P>Archivo tipo JSON.</P>
+					<P>Archirvo parquet.</P>
+
+				</section>
+				<section>
+					<h4>Archivo plano:</h4>
+					<P class="plano">un archivo plano (también conocido como archivo de texto o archivo de datos) es un tipo de archivo que contiene datos en un formato de texto plano, sin formato binario o de formato especializado. Este tipo de archivo se compone de una serie de líneas de texto sin ningún tipo de formato específico, y cada línea puede contener una cantidad variable de caracteres y/o números separados por algún tipo de delimitador, como una coma, un tabulador, un espacio en blanco, entre otros.
+				</section>
+				<section>
+					<h4>ejemplo archivo plano:</h4>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|4,8-11|17|22-24">
+				Juan Perez, 25, 1.75, 75
+				Maria Gomez, 30, 1.68, 60
+				Pedro Rodriguez, 40, 1.80, 85
+
+				______________________________________________
+
+				const fs = require('fs');
+
+				fs.readFile('datos.txt', 'utf8', (err, data) => {
+  				if (err) throw err;
+
+  				const lineas = data.trim().split('\n');
+ 				for (const linea of lineas) {
+    				const datos = linea.split(', ');
+    				const nombre = datos[0];
+    				const edad = parseInt(datos[1]);
+    				const altura = parseFloat(datos[2]);
+    				const peso = parseFloat(datos[3]);
+    			console.log(nombre, edad, altura, peso);
+  				}
+				});
+				</code></pre>
+				</section>
+				<section>
+					<h3>Archivo XML:</h3>
+					<p>XML es un lenguaje de marcado XML desarrollado por Mozilla para crear interfaces de usuario para aplicaciones basadas en Mozilla como Firefox, Thunderbird y SeaMonkey. Un archivo XUL es un archivo de texto plano que utiliza la sintaxis XML para definir la estructura y el contenido de una interfaz de usuario. En un archivo XUL, se pueden definir elementos como ventanas, cuadros de diálogo, menús, barras de herramientas, botones, campos de texto y otros elementos de la interfaz de usuario. 
+						</p>
+				</section>
+				<section>
+					<h4>ejemplo archivo XML:</h4>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+
+						  <?xml version="1.0"?>
+						  <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+						  <!DOCTYPE window SYSTEM "chrome://global/locale/intl.dtd">
+						  
+						  <window id="myWindow" title="Mi Ventana" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+						  
+							button label="Mostrar Alerta" oncommand="mostrarAlerta()"/>
+						  
+							<script type="application/javascript">
+							  function mostrarAlerta() {
+								alert("¡Hola, mundo!");
+							  }
+							</script>
+						  
+					</code></pre>
+				</section>
+				<section>
+					<h3>Archivo tipo json:</h3>
+					<p>JSON (JavaScript Object Notation) es un formato de intercambio de datos que utiliza una sintaxis sencilla y fácil de leer para representar objetos y datos estructurados. Un archivo JSON es un archivo de texto plano que utiliza la sintaxis JSON para almacenar datos estructurados en un formato legible para las computadoras.
+						</p>
+				</section>
+				<section>
+					<h4>ejemplo archivo tipo json:</h4>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+						const ingenierojuan {
+							"nombre": "Juan",
+							"apellido": "Pérez",
+							"edad": 30,
+							"email": "juan.perez@example.com",
+							"direccion": {
+							  "calle": "Av. Principal",
+							  "numero": "123",
+							  "ciudad": "Bogotá",
+							  "pais": "Colombia"
+							},
+							"telefonos": [
+							  {
+								"tipo": "casa",
+								"numero": "555-1234"
+							  },
+							  {
+								"tipo": "trabajo",
+								"numero": "555-5678"
+							  }
+							]
+						  }
+						
+				  </code></pre>
+
+				</section>
+				<section>
+					<h4>archivo parquet</h4>
+					<p>Parquet es un formato de archivo columnar utilizado para el almacenamiento y procesamiento eficiente de grandes conjuntos de datos en sistemas distribuidos. Se utiliza comúnmente en herramientas de procesamiento de datos como Apache Hadoop y Apache Spark.
+						El formato Parquet almacena los datos en columnas en lugar de en filas, lo que lo hace más eficiente en términos de almacenamiento y procesamiento de datos. Además, utiliza técnicas de compresión avanzadas para reducir el tamaño del archivo y mejorar el rendimiento.</p>
+				</section>
+				<section>
+					<h4>ejemplo archivo parquet:</h4>
+					<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+					
+						import pyarrow as pa
+						import pyarrow.parquet as pq
+
+						# Crear un esquema para el archivo Parquet
+							schema = pa.schema([
+   								("nombre", pa.string()),
+  								("edad", pa.int32()),
+    							("altura", pa.float64())
+							])
+
+						# Crear un conjunto de datos con algunos datos
+							datos = [
+   								 {"nombre": "Ana", "edad": 30, "altura": 1.65},
+   								 {"nombre": "Juan", "edad": 25, "altura": 1.75},
+ 								 {"nombre": "María", "edad": 35, "altura": 1.80}
+							]
+
+						# Crear una tabla PyArrow a partir del esquema y los datos
+							tabla = pa.Table.from_pydict({k: [d.get(k) for d in datos] for k in schema.names})
+
+						# Escribir la tabla en un archivo Parquet
+						pq.write_table(tabla, 'datos.parquet')
+						
+				  </code></pre>
+				</section>
+				<section>
+					<h4 class="tracking-in-contract">latidos ...</h4>
+				</section>
+				<section>
+					<h4 class="jello-horizontal">como gelatina ...</h4>
+				</section>
+				<section>
+					<div class="heartbeat">palpitando ...</div>
+				</section>
+				<section>
+					<div>
+						<h3>mi video de explicacion JEST:</h3>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/xG5wMk6txcE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen> mi video de explicacion JEST:</iframe>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
